@@ -1,0 +1,136 @@
+.darkBG {
+  background-color: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  padding: 4rem 1.5rem;
+}
+
+.darkBGOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: -1;
+}
+
+.centered {
+  width: 100%;
+  max-width: 650px;
+  max-height: 100%;
+  margin: auto;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
+.modalHeader {
+  background: white;
+  display: flex;
+  padding: 0.8rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
+
+  .modalTitle {
+    font-size: 1.1rem;
+    font-family: "Open sans", sans-serif;
+    font-weight: 600;
+  }
+
+  .closeBtn {
+    background: transparent;
+    border: none;
+    color: #555;
+    transition: all 0.15s ease;
+    width: fit-content;
+    aspect-ratio: 1/1;
+
+    &:hover {
+      color: #000;
+      cursor: pointer;
+    }
+    svg {
+      fill: currentColor;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    
+  }
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem 1.2rem;
+  }
+}
+
+.heading {
+  margin: 0;
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+}
+
+.modalContent {
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.modalActions {
+  position: absolute;
+  bottom: 2px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.actionsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.deleteBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: #fff;
+  background: #ff3e4e;
+  transition: all 0.25s ease;
+}
+
+.deleteBtn:hover {
+  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+  transform: translateY(-5px);
+  background: #ff3e4e;
+}
+
+.cancelBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: #2c3e50;
+  background: #fcfcfc;
+  transition: all 0.25s ease;
+}
+
+.cancelBtn:hover {
+  box-shadow: none;
+  transform: none;
+  background: whitesmoke;
+}

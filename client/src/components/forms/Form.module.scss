@@ -1,0 +1,198 @@
+.field-wrapper {
+  margin: 1.6rem 0 2.4rem;
+}
+
+.error {
+  color: #c11106;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.form-field {
+  position: relative;
+  --icon-size: 2rem;
+
+  label {
+    font-size: 0.8rem;
+    color: #333;
+  }
+
+  svg.icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate3d(0, -50%, 0);
+    width: 1.4rem;
+    height: 1.4rem;
+    z-index: 1;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    line-height: 1.2;
+    position: relative;
+    background-color: transparent;
+    padding: 0.8rem 0;
+    border: none;
+    border-bottom: solid 1px #01020433;
+    outline: none;
+    width: 100%;
+  }
+
+  input::before {
+    content: attr(placeholder);
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    font: inherit;
+    transition: all 0.1s;
+    z-index: 1;
+  }
+
+  input.withIcon {
+    padding-left: var(--icon-size);
+  }
+
+  label::before {
+    content: attr(data-name);
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    font: inherit;
+    font-size: 1rem;
+    transition: all 0.1s;
+    z-index: 1;
+    pointer-events: none;
+  }
+  label.withIcon::before {
+    left: var(--icon-size);
+  }
+
+  label.filled::before,
+  label:focus-within::before {
+    font-size: 0.75rem;
+    left: 0;
+    transform: translate3d(0, -220%, 0);
+  }
+
+  label.textarea-label {
+    &::before {
+      top: 0%;
+      left: 0.8rem;
+      transform: translate3d(0, 50%, 0);
+    }
+    &.filled::before,
+    &:focus-within::before {
+      left: 0;
+      transform: translate3d(0, -110%, 0);
+    }
+  }
+
+  label:focus-within::before {
+    color: var(--primary);
+  }
+
+  option {
+    font: inherit;
+    line-height: 1.5;
+  }
+
+  textarea {
+    border: solid 1px #01020433;
+    resize: vertical;
+    padding: 0.8rem;
+    min-height: 6rem;
+  }
+
+  input:focus,
+  select:focus {
+    border-bottom: solid 1px #153964;
+  }
+
+  textarea:focus {
+    border: solid 1px #153964;
+  }
+
+  .radio-group {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem 1.6rem;
+    margin: 1rem 0 1rem;
+    padding-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .radio-option {
+      display: flex;
+      flex-direction: row;
+
+      input.radio {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      label.radio-label {
+        font-family: "Roboto", sans-serif;
+        font-size: 1rem;
+        line-height: 1.2;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .event-slots {
+    list-style-type: none;
+    width: 100%;
+
+    .slot {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #cacaca;
+
+      .slot-label {
+        white-space: nowrap;
+        margin-right: 2rem;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 0.15ch;
+      }
+
+      .radio-group {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .checkbox-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 1.6rem 0 3.2rem;
+
+    .checkbox {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    label.checkbox-label {
+      margin-left: 1rem;
+      font-family: "Roboto", sans-serif;
+      font-size: 1rem;
+      line-height: 1.2;
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.6rem;
+}

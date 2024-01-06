@@ -1,0 +1,34 @@
+# dependencies
+node_modules
+
+# build/production
+/client/build
+
+# env var
+.env.*
+!.env.example
+!.env.defaults
+
+# logs
+/logs
+*.log
+
+# Editor specific
+.vscode
+
+# Temporary files
+*.sw?
+*.cache
+.DS_Store
+
+# Generated / Auto-generated files
+/dist
+/dist-ssr
+.eslintcache
+
+# Configuration
+.prettierrc
+
+# media
+public/avatars/
+private/sign

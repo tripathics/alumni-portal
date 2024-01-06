@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  --primary: #18621f;
+  --gutter-x: 3.75rem;
+  --app-bg: #f2f8f8;
+  --box-bs: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  --box-bs: rgba(0, 0, 0, 0.133) 0px 1.6px 3.6px 0px,
+    rgba(0, 0, 0, 0.11) 0px 0.3px 0.9px 0px;
+  --text-muted: #6c757d;
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    --gutter-x: 2.2rem;
+  }
+}
+
+body {
+  font-family: "Open Sans", serif;
+  background: var(--app-bg);
+}
+
+.container {
+  max-width: 1140px;
+  width: 100%;
+  margin: auto;
+  padding-left: calc(0.5 * var(--gutter-x));
+  padding-right: calc(0.5 * var(--gutter-x));
+}
+
+.__page-content {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+__input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form {
+  max-width: 600px;
+}
+
+button.primary {
+  background-color: var(--primary);
+  border: #18621f;
+  color: #fff;
+}
+button.primary:active {
+  background-color: #0f4d1a;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Libre Baskerville", serif;
+}
+
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0.95;
+}
+
+.btn {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+}
