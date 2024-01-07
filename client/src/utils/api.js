@@ -40,11 +40,17 @@ const user = (id) => {
   }).then(checkResponse).catch(err => console.log(err))
 }
 
+const alumniPrefill = () => fetch('/api/alumni/membership-prefill', {
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' },
+}).then(checkResponse).catch(err => console.log(err))
+
 export {
   login as loginApi,
   logout as logoutApi,
   checkAuth as checkAuthApi,
   profile as profileApi,
   signup as signupApi,
-  user as userApi
+  user as userApi,
+  alumniPrefill as alumniPrefillApi,
 };

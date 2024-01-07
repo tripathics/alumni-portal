@@ -54,8 +54,8 @@ const Profile = () => {
         pageHeading={user?.isProfileIncomplete ? "Create Profile" : "Profile"}
         subHeading={
           user?.isProfileIncomplete
-            ? "Create your alumni profile by filling in personal, academic and professional details."
-            : "Manage and update your alumni profile."
+            ? "Create your profile by filling in personal, academic and professional details."
+            : "Manage and update your profile."
         }
       />
       <div className="__page-content container">

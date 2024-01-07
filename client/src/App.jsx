@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RootLayout from "./components/layouts/Root";
 import UserProvider from "./contexts/user";
-import { Home, Login, About, MembershipForm, Register } from "./views";
+import { Home, Login, About, Register } from "./views";
 import Profile, {
   PersonalProfile,
   Education,
@@ -12,6 +12,7 @@ import Admin, {
   Dashboard,
   SubmissionUpdates,
 } from "./views/(dashboard)/Admin/page";
+import Alumni, { MembershipForm } from "./views/Alumni/page";
 import ProtectedComponent from "./components/ProtectedComponent";
 
 function App() {
@@ -46,13 +47,16 @@ function App() {
               />
             </Route>
             <Route
-              path="/membership-registration"
+              path="/alumni-membership"
               element={
                 <ProtectedComponent>
-                  <MembershipForm />
+                  <Alumni />
                 </ProtectedComponent>
               }
-            />
+            >
+              <Route path="" element={<MembershipForm />} />
+              <Route path="status" element={<h1>TODO</h1>} />
+            </Route>
             <Route path="*" element={<h1>404 Not found</h1>} />
           </Routes>
         </RootLayout>

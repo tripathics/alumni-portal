@@ -41,8 +41,8 @@ const Navbar = () => {
   const userLinks = [
     { label: "Login", href: "/login", noAuth: true },
     { label: "Register", href: "/register", noAuth: true },
-    { label: "Membership registration", href: "/membership-registration" },
     { label: "Profile", href: "/profile" },
+    { label: "Membership registration", href: "/alumni-membership" },
     { label: "Logout", href: "/", action: logout },
   ];
 
