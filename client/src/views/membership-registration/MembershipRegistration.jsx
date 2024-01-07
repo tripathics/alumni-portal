@@ -2,6 +2,10 @@ import Header from "@/components/layouts/PageHeader";
 import { useUser } from "@/contexts/user";
 import MembershipLayout from "@/components/layouts/Dashboard";
 import SchemaForm, { Button } from "@/components/forms";
+import {
+  Bell as BellIcon,
+  GraduationCap as GraduationCapIcon,
+} from "iconoir-react";
 
 const MembershipFormComponent = ({ prefillData, onSubmit }) => {
   return (
@@ -87,7 +91,25 @@ const MembershipForm = () => {
         }
       />
       <div className="__page-content container">
-        <MembershipLayout navigations={[]}>
+        <MembershipLayout
+          navigations={[
+            {
+              title: "Alumni",
+              links: [
+                {
+                  name: "Membership registration",
+                  Icon: GraduationCapIcon,
+                  path: "/membership-registration",
+                },
+                {
+                  name: "Form status",
+                  Icon: BellIcon,
+                  path: "/membership-registration/status",
+                },
+              ],
+            },
+          ]}
+        >
           <MembershipFormComponent
             prefillData={user}
             onSubmit={completeRegistration}

@@ -20,7 +20,7 @@ const Profile = () => {
 
   const navigations = [
     {
-      title: "Alumni Profile",
+      title: "Profile",
       links: [
         { name: "Personal Details", path: "/profile", Icon: UserIcon },
         {

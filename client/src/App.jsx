@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RootLayout from "./components/layouts/Root";
 import UserProvider from "./contexts/user";
-import { Home, Login, MembershipForm, Register } from "./views";
+import { Home, Login, About, MembershipForm, Register } from "./views";
 import Profile, {
   PersonalProfile,
   Education,
@@ -21,6 +21,7 @@ function App() {
         <RootLayout>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route
