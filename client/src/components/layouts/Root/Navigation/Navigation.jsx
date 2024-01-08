@@ -42,7 +42,7 @@ const Navbar = () => {
     { label: "Login", href: "/login", noAuth: true },
     { label: "Register", href: "/register", noAuth: true },
     { label: "Profile", href: "/profile" },
-    { label: "Membership registration", href: "/alumni-membership" },
+    { label: "Alumni Membership", href: "/alumni-membership" },
     { label: "Logout", href: "/", action: logout },
   ];
 

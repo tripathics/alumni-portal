@@ -79,7 +79,7 @@ const MembershipForm = () => {
         ]}
         onSubmit={onSubmit}
         actions={
-          <Button type="submit" className="btn btn-primary">
+          <Button type="submit" className="btn primary">
             Complete Registration
           </Button>
         }

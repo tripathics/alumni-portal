@@ -5,12 +5,16 @@ var _db;
 
 module.exports = {
   connectToServer: function (callback) {
-    const db = mysql.createConnection({
+    let mysqlConfig = process.env.DB_URI ? {
+      uri: process.env.DB_URI
+    } : {
       host: process.env.DB_HOST || 'localhost',
       user: process.env.DB_USER || 'root',
       password: process.env.DB_USER_PASSWORD || 'rootpass',
       database: process.env.DB_NAME || 'alumniDatabase'
-    });
+    }
+
+    const db = mysql.createConnection(mysqlConfig);
 
     db.connect(function (err) {
       if (err) {
@@ -18,7 +22,7 @@ module.exports = {
       }
       _db = db;
 
-      console.log(`Connected to the MySQL "${process.env.DB_NAME || 'alumniDatabase'}" database.`);
+      console.log(`Connected to the MySQL "${db.config.database || 'alumniDatabase'}" database.`);
       callback();
     })
   },

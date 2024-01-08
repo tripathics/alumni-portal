@@ -11,10 +11,16 @@ const PageHeader = ({
     <header className={styles.header}>
       <div
         className={styles["bg-image"]}
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: children ? "cover" : "75%",
-        }}
+        style={
+          children
+            ? {
+                backgroundImage: `url(${bgImage})`,
+                backgroundSize: "cover",
+              }
+            : {
+                backgroundImage: `url(${bgImage})`,
+              }
+        }
       />
       <div className={styles["bg-overlay"]} />
       <div className={cx("container", styles["heading-wrapper"])}>
