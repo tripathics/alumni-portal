@@ -7,7 +7,7 @@ const NavLi = ({ Icon, name, path, action = null, location }) => {
     <li>
       <NavLink
         to={path}
-        onClick={(e) => {
+        onClick={() => {
           if (action) action();
         }}
         className={cx(styles["sidebar-nav-link"], {

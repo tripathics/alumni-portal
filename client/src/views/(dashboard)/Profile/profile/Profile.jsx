@@ -297,9 +297,7 @@ const PersonalDetails = () => {
     };
   }, []);
 
-  return false ? (
-    <p>Loading</p>
-  ) : personalDetails?.registrationNo ? (
+  return personalDetails?.registrationNo ? (
     <>
       <section className={cx(styles.box, styles["basic-info-wrapper"])}>
         <div className={styles["actions"]}>
