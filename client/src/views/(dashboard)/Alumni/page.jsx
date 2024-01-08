@@ -9,19 +9,12 @@ import MembershipForm from "./membership/MembershipForm";
 import { Outlet } from "react-router";
 
 const Alumni = () => {
-  const { user } = useUser();
-
   return (
     <>
       <Header
-        pageHeading={
-          user?.registrationNo ? "Register here" : "Already responded"
-        }
-        subHeading={
-          user?.registrationNo
-            ? "Complete your membership registration by filling the below details"
-            : "Manage and update your alumni profile."
-        }
+        pageHeading="Alumni membership"
+        subHeading="Complete your membership registration by filling the below details"
+        bgImage="https://lh3.googleusercontent.com/p/AF1QipOHLZq3d_radN5tYxI-M-dasI3_c5xdK-GRzItp=s0"
       />
       <div className="__page-content container">
         <MembershipLayout

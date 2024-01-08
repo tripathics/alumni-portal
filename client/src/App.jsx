@@ -12,7 +12,7 @@ import Admin, {
   Dashboard,
   SubmissionUpdates,
 } from "./views/(dashboard)/Admin/page";
-import Alumni, { MembershipForm } from "./views/Alumni/page";
+import Alumni, { MembershipForm } from "./views/(dashboard)/Alumni/page";
 import ProtectedComponent from "./components/ProtectedComponent";
 
 function App() {
