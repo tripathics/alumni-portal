@@ -41,7 +41,7 @@ const Login = () => {
     if (!(user.firstName && user.lastName && user.title)) {
       history("/profile");
     } else {
-      history("/alumni");
+      history("/alumni-membership");
     }
   }, [user, loading]);
 

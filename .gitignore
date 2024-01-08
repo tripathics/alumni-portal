@@ -3,8 +3,10 @@ node_modules
 
 # build/production
 /client/build
+/client/dist
 
 # env var
+.env
 .env.*
 !.env.example
 !.env.defaults

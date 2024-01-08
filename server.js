@@ -44,13 +44,13 @@ app.listen(port, () => {
 
     // middlewares for error handling
     app.use(require('./middlewares/error'));
+
+    // serve react frontend (static files) from build folder in production environment
+    if (process.env.NODE_ENV === 'production') {
+      app.use(express.static(path.join(__dirname, 'client', 'dist')));
+      app.use((req, res, next) => {
+        res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+      });
+    }
   });
 });
-
-// serve react frontend (static files) from build folder in production environment
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, '..', 'build')));
-//   app.use((req, res, next) => {
-//     res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-//   });
-// }
