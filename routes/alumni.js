@@ -8,7 +8,7 @@ alumni.get('/alumni/membership-prefill', authenticate, (req, res, next) => {
   db.query(`SELECT users.id, users.email, users.role, 
   profiles.title, profiles.firstName, profiles.lastName, profiles.dob, profiles.registrationNo, profiles.rollNo, profiles.avatar
   FROM users
-  LEFT JOIN profiles ON users.id = profiles.userId AND users.id = ?`, [id], (err, results) => {
+  LEFT JOIN profiles ON users.id = profiles.userId WHERE users.id = ?`, [id], (err, results) => {
     if (err) return next(err);
 
     res.status(200).json({
