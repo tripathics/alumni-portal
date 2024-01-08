@@ -64,7 +64,7 @@ users.route('/users/login').post(clearSession, (req, res, next) => {
   // get user details from users table along with their full name and avatar from profiles table
   db.query(`SELECT users.*, profiles.title, profiles.firstName, profiles.lastName, profiles.avatar
   FROM users
-  LEFT JOIN profiles ON users.id = profiles.userId AND users.email = ?`, [email], (err, results) => {
+  LEFT JOIN profiles ON users.id = profiles.userId WHERE users.email = ?`, [email], (err, results) => {
     if (err) return next(err);
 
     if (results.length === 0) {
@@ -144,7 +144,7 @@ users.route('/users').get(authenticate, (req, res, next) => {
   let id = req.user.role === 'admin' ? req.query.id : req.user.id;
   db.query(`SELECT users.id, users.email, users.role, profiles.title, profiles.firstName, profiles.lastName, profiles.avatar
   FROM users
-  LEFT JOIN profiles ON users.id = profiles.userId AND users.id = ?`, [id], (err, results) => {
+  LEFT JOIN profiles ON users.id = profiles.userId WHERE users.id = ?`, [id], (err, results) => {
     if (err) return next(err);
 
     res.status(200).json({
