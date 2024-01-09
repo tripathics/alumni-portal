@@ -13,7 +13,7 @@ const Alumni = () => {
       <Header
         pageHeading="Alumni membership"
         subHeading="Complete your membership registration by filling the details below"
-        bgImage="https://lh3.googleusercontent.com/p/AF1QipOHLZq3d_radN5tYxI-M-dasI3_c5xdK-GRzItp=s0"
+        bgImage="/header-bg/2022-01-03.jpg"
       />
       <div className="__page-content container">
         <MembershipLayout

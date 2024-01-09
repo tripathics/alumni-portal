@@ -178,7 +178,7 @@ users.route('/users/education').delete(authenticate, (req, res, next) => {
   const user = req.user;
   const id = req.query.id;
 
-  const sql = 'DELETE FROM academics WHERE id = ? AND userId = ?';
+  const sql = 'DELETE FROM academics WHERE id = ? AND userId = ? AND institute != "National Institute of Technology, Arunachal Pradesh"';
   db.query(sql, [id, user.id], (err, results) => {
     if (err) return next(err);
     console.log('Deleted education:', results);

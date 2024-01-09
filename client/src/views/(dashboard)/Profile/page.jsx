@@ -57,7 +57,7 @@ const Profile = () => {
             ? "Create your profile by filling in personal, academic and professional details."
             : "Manage and update your profile."
         }
-        bgImage="https://lh3.googleusercontent.com/p/AF1QipPrbxy_zxfBPIwoyzYhOVCwpoE027FVvicjtOFN=s0"
+        bgImage="/header-bg/2023-04-09.jpg"
       />
       <div className="__page-content container">
         <DashboardLayout navigations={navigations}>
