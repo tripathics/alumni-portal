@@ -22,12 +22,12 @@ const Alumni = () => {
               title: "Alumni",
               links: [
                 {
-                  name: "Membership registration",
+                  name: "Life Membership",
                   Icon: GraduationCapIcon,
                   path: "/alumni-membership",
                 },
                 {
-                  name: "Form status",
+                  name: "Application status",
                   Icon: BellIcon,
                   path: "/alumni-membership/status",
                 },

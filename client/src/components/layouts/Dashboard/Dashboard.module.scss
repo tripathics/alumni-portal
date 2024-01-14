@@ -123,11 +123,20 @@
   }
 }
 
-.box.alert {
+.alert {
   display: flex;
   flex-direction: row;
   align-items: start;
   gap: 1rem;
+  margin-bottom: 1rem;
+
+  .icon {
+    flex-shrink: 0;
+    @media screen and (max-width: 768px) {
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 @media screen and (max-width: 1024px) {

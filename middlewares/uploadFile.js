@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     if (file.fieldname === 'avatar') {
       cb(null, path.join(__dirname, '..', 'public', 'avatars'));
     } else if (file.fieldname === 'sign') {
-      cb(null, path.join(__dirname, '..', 'private', 'avatars'));
+      cb(null, path.join(__dirname, '..', 'private', 'sign'));
     } else {
       cb('Error: Invalid fieldname!');
     }

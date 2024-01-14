@@ -77,61 +77,15 @@ CREATE TABLE experiences (
 );
 
 CREATE TABLE membership_applications (
-    id char(36) NOT NULL DEFAULT (UUID()),
     userId char(36) NOT NULL,
-    
-    title SET('mr', 'mrs', 'ms', 'dr') NOT NULL,
-    firstName varchar(64) NOT NULL,
-    lastName varchar(64),
-    dob varchar(10) NOT NULL,
-
-    category  varchar(10),
-    nationality varchar(15) NOT NULL,
-    religion varchar(16),
-
-    address varchar(128) NOT NULL,
-    pincode varchar(10) NOT NULL,
-    state  varchar(64) NOT NULL,
-    city varchar(64) NOT NULL,
-    country  varchar(64) NOT NULL,
-
-    phone varchar(15), 
-    altPhone varchar(15),
-    email varchar(255),
-    altEmail varchar(255),
-
-    occupation varchar(30) DEFAULT NULL,
-    designation varchar(30) DEFAULT NULL,
-
-    degree varchar(50) NOT NULL,
-    discipline varchar(50) NOT NULL,
-    endDate varchar(10) NOT NULL,      -- graduation date
-
     membershipLevel SET('level1_networking', 'level2_volunteering') NOT NULL,
+    sign VARCHAR(255) NOT NULL,
+    submitDate DATETIME DEFAULT NOW(),
 
-    sign varchar(255) DEFAULT NULL,
-    date varchar(10) NOT NULL,
-
-    PRIMARY KEY(id),
+    status SET('pending', 'approved', 'rejected') DEFAULT 'pending',
+    PRIMARY KEY(userId),
     FOREIGN KEY(userId) REFERENCES profiles(userId)
 );
-
--- CREATE TABLE alumnilist (
---     id varchar(50) NOT NULL,
---     userId varchar(50) NOT NULL,
-
---     currentStatus SET('working', 'higher-education', 'preparing') DEFAULT 'preparing',
---     preparingfor varchar(100) DEFAULT NULL,
---     occupation varchar(30) DEFAULT NULL,
---     organisation varchar(50) DEFAULT NULL,
---     ctc decimal(10,2),
---     ongoingCourseDetails varchar(40),
---     ongoingCourseDiscipline varchar(40),
---     ongoingCourseGradYear varchar(10),
-
---     isApproved  SET('0', '-1', '1') DEFAULT '0',
---     PRIMARY KEY(id)
--- );
 
 CREATE TABLE organisationDetails 
 (
