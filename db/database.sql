@@ -76,7 +76,7 @@ CREATE TABLE experiences (
     FOREIGN KEY(userId) REFERENCES profiles(userId)
 );
 
-CREATE TABLE membership_application (
+CREATE TABLE membership_applications (
     id char(36) NOT NULL DEFAULT (UUID()),
     userId char(36) NOT NULL,
     

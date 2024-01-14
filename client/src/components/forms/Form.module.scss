@@ -196,3 +196,47 @@
   font-weight: 700;
   margin-bottom: 1.6rem;
 }
+
+.file-upload-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  label,
+  button {
+    display: flex;
+    gap: 0.5rem;
+    border: solid 1px #000;
+    padding: 0.3rem 0.6rem;
+    font-weight: 500;
+    font-size: 1rem;
+    white-space: nowrap;
+    justify-content: center;
+
+    svg {
+      width: 1.2rem;
+      stroke-width: 1.8;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  .image {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

@@ -44,8 +44,17 @@ alumni.post('/alumni/membership', authenticate, uploadSign, (req, res, next) => 
 
     if (results.length) {
       // insert into membership applications table from profiles and academics table (for NIT Arunachal Pradesh) WHERE userId = id
-      const sql = `INSERT INTO membership_applications (userId, title, firstName, lastName, dob, registrationNo, rollNo, mobile, email, membershipType, sign) 
-      SELECT profiles.userId, profiles.title, profiles.firstName, profiles.lastName, profiles.dob, profiles.registrationNo, profiles.rollNo, profiles.mobile, ?, ?, ?`
+      let sql;
+      sql = `INSERT INTO membership_applications (
+        id, userId, title, firstName, lastName, dob, 
+        category, nationality, religion, 
+        address, pincode, state, city, country,
+        phone, altPhone, altEmail,
+        occupation, designation,
+        degree, discipline,endDate,
+        membershipLevel,
+        sign, date, email
+        )  `
 
       db.query(sql, [email, body.membershipType, sign?.filename], (err, results) => {
         if (err) return next(err);

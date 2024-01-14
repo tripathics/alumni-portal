@@ -97,6 +97,14 @@ const MembershipForm = () => {
               },
             ],
           },
+          {
+            name: "sign",
+            label: "Signature",
+            type: "file",
+            required: "Signature is required",
+            allowedFormmats: ["image/jpeg", "image/png", "image/gif"],
+            maxFileSize: 1000,
+          },
         ]}
         onSubmit={onSubmit}
         actions={
