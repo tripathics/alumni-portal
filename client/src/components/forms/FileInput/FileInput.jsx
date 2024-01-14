@@ -15,9 +15,12 @@ const FileInput = ({
   error = null,
 }) => {
   const files = watch(name);
+  let fileName = Array.isArray(files)
+    ? files.map((file) => file.name).join(", ")
+    : null;
 
   const checkFileType = (values) => {
-    if (allowedFormats) {
+    if (Array.isArray(allowedFormats)) {
       for (let file of values) {
         if (!allowedFormats.includes(file.type)) {
           return "Inavalid file format";
@@ -53,8 +56,8 @@ const FileInput = ({
           rules={{
             required: required,
             validate: {
-              checkFileSize,
               checkFileType, // Use the checkFileType function as a validation rule
+              checkFileSize,
             },
           }}
           name={name}
@@ -76,6 +79,9 @@ const FileInput = ({
           )}
         />
       </div>
+      {fileName && (
+        <p className={styles["file-name"]}>Files selected: {fileName}</p>
+      )}
       {error && <p className={styles["error"]}>{error.message}</p>}
     </>
   );

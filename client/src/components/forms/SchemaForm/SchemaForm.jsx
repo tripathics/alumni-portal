@@ -112,11 +112,11 @@ const SchemaForm = ({
 
           return (
             <div key={index} className={styles["field-wrapper"]}>
-              {Array.isArray(file) && (
+              {Array.isArray(file) && file.length > 0 && (
                 <div className={styles["image-preview"]}>
                   {file.map((f, _) => (
                     <div key={_} className={styles["image"]}>
-                      <img src={URL.createObjectURL(f)} />
+                      <img src={URL.createObjectURL(f)} alt={f.name} />
                     </div>
                   ))}
                 </div>

@@ -102,7 +102,7 @@ const MembershipForm = () => {
             label: "Signature",
             type: "file",
             required: "Signature is required",
-            allowedFormmats: ["image/jpeg", "image/png", "image/gif"],
+            allowedFormats: ["image/jpeg", "image/png", "image/gif"],
             maxFileSize: 1000,
           },
         ]}
