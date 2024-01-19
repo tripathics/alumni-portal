@@ -1,12 +1,14 @@
 import Navigation from "./Navigation/Navigation";
-import { useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const location = useLocation();
   if (["/login", "/register"].includes(location.pathname)) {
     return (
       <div className="__layout">
-        <main className="__layout-main">{children}</main>
+        <main className="__layout-main">
+          <Outlet />
+        </main>
       </div>
     );
   }
@@ -14,7 +16,9 @@ const Layout = ({ children }) => {
   return (
     <div className="__layout">
       <Navigation />
-      <main className="__layout-main">{children}</main>
+      <main className="__layout-main">
+        <Outlet />
+      </main>
       {/* footer (maybe not required) */}
     </div>
   );

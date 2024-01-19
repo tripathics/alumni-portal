@@ -11,6 +11,7 @@ const NavLi = ({ label, href, action = null, closeCollapsableNav }) => {
   return (
     <li className={styles["nav-li"]}>
       <NavLink
+        end
         className={(state) =>
           cx(styles["link"], {
             [styles["active"]]: action ? false : state.isActive,
