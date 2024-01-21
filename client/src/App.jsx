@@ -19,32 +19,37 @@ import Admin, {
   SubmissionUpdates,
 } from "./views/(dashboard)/Admin/page";
 import Alumni, { MembershipForm } from "./views/(dashboard)/Alumni/page";
+import AuthLayout from "./components/layouts/Auth";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route path="" element={<Home />} />
-      <Route path="about" element={<About />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-      <Route element={<ProtectedRoutes />}>
-        <Route path="admin" element={<Admin />}>
-          <Route path="" element={<Dashboard />} />
-          <Route path="annoucements" element={<Annoucements />} />
-          <Route path="submission-updates" element={<SubmissionUpdates />} />
+    <Route path="/">
+      <Route element={<RootLayout />}>
+        <Route path="" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="admin" element={<Admin />}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="annoucements" element={<Annoucements />} />
+            <Route path="submission-updates" element={<SubmissionUpdates />} />
+          </Route>
+          <Route path="profile" element={<Profile />}>
+            <Route path="" element={<PersonalProfile />} />
+            <Route path="education" element={<Education />} />
+            <Route path="experience" element={<Experience />} />
+            <Route path="*" element={<h1>TODO</h1>} />
+          </Route>
+          <Route path="alumni-membership" element={<Alumni />}>
+            <Route path="" element={<MembershipForm />} />
+            <Route path="status" element={<h1>TODO</h1>} />
+          </Route>
         </Route>
-        <Route path="profile" element={<Profile />}>
-          <Route path="" element={<PersonalProfile />} />
-          <Route path="education" element={<Education />} />
-          <Route path="experience" element={<Experience />} />
-          <Route path="*" element={<h1>TODO</h1>} />
-        </Route>
-        <Route path="alumni-membership" element={<Alumni />}>
-          <Route path="" element={<MembershipForm />} />
-          <Route path="status" element={<h1>TODO</h1>} />
-        </Route>
+        <Route path="*" element={<h1>404 Not found</h1>} />
       </Route>
-      <Route path="*" element={<h1>404 Not found</h1>} />
+      <Route element={<AuthLayout />}>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
     </Route>
   )
 );

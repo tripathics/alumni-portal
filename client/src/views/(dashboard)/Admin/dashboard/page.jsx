@@ -1,9 +1,11 @@
+import styles from "@/components/layouts/Dashboard/Dashboard.module.scss";
 
 const Dashboard = () => {
-
-    return (<>
-        <h1>Dashboard Layout based on profile layout</h1>
-    </>)
-}
+  return (
+    <div>
+      <section className={styles.box}>Hello</section>
+    </div>
+  );
+};
 
 export default Dashboard;

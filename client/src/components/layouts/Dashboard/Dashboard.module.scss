@@ -192,6 +192,19 @@
           text-decoration: none;
           color: #272727;
           transition: 0.12s ease-in-out;
+        
+          &::before {
+            border-radius: 4px;
+            content: "";
+            width: 4px;
+            height: 100%;
+            background-color: #18621f;
+            position: absolute;
+            left: -8px;
+            transform-origin: right;
+            transform: scaleX(0);
+            transition: 0.12s ease-in-out;
+          }
         }
 
         .sidebar-nav-link:hover {
@@ -202,13 +215,7 @@
           background-color: rgba(24, 98, 31, 0.1);
 
           &::before {
-            border-radius: 4px;
-            content: "";
-            width: 4px;
-            height: 100%;
-            background-color: #18621f;
-            position: absolute;
-            left: -8px;
+            transform: scaleX(1);
           }
         }
       }

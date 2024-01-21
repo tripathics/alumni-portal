@@ -23,6 +23,7 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const [userType, setUserType] = useState("user"); // ['user', 'admin'
   const [error, setError] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -73,42 +74,61 @@ const Login = () => {
             </button>
           </div>
         )}
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={cx(styles["login-form"], styles["box"])}
-        >
-          <TextField
-            type="text"
-            required
-            label="Email"
-            Icon={MailIcon}
-            {...register("email", {
-              required: "Email is required",
-              pattern: { value: /\S+@\S+\.\S+/, message: "Invalid email" },
+
+        <div className={styles["tabs"]}>
+          <button
+            onClick={() => setUserType("user")}
+            className={cx(styles.tab, { [styles.active]: userType === "user" })}
+          >
+            User
+          </button>
+          <button
+            onClick={() => setUserType("admin")}
+            className={cx(styles.tab, {
+              [styles.active]: userType === "admin",
             })}
-            value={watch("email")}
-            error={errors["email"]}
-          />
-          <TextField
-            type="password"
-            required
-            label="Password"
-            Icon={KeyIcon}
-            {...register("password", { required: "Password is required" })}
-            value={watch("password")}
-            error={errors["password"]}
-          />
-          <div className={styles["actions"]}>
-            <Button
-              disabled={loading}
-              type="submit"
-              className="btn primary"
-              loading={loading}
-            >
-              Login
-            </Button>
-          </div>
-        </form>
+          >
+            Admin
+          </button>
+        </div>
+        <div className={cx(styles["box"], styles["form-box"])}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={cx(styles["login-form"])}
+          >
+            <TextField
+              type="text"
+              required
+              label="Email"
+              Icon={MailIcon}
+              {...register("email", {
+                required: "Email is required",
+                pattern: { value: /\S+@\S+\.\S+/, message: "Invalid email" },
+              })}
+              value={watch("email")}
+              error={errors["email"]}
+            />
+            <TextField
+              type="password"
+              required
+              label="Password"
+              Icon={KeyIcon}
+              {...register("password", { required: "Password is required" })}
+              value={watch("password")}
+              error={errors["password"]}
+            />
+            <div className={styles["actions"]}>
+              <Button
+                disabled={loading}
+                type="submit"
+                className="btn primary"
+                loading={loading}
+              >
+                Login
+              </Button>
+            </div>
+          </form>
+        </div>
         <div className={cx(styles["box"], styles["action-links"])}>
           <p>
             Forgot your password?{" "}
