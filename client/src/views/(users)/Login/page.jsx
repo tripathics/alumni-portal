@@ -1,7 +1,7 @@
 import { Button, TextField } from "@/components/forms";
-import { useUser } from "@/contexts/user";
+import useUser from "@/hooks/useUser";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import styles from "../user.module.scss";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,9 @@ import {
 } from "iconoir-react";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const {
     register,
     watch,
@@ -41,7 +44,8 @@ const Login = () => {
     if (!(user.firstName && user.lastName && user.title)) {
       history("/profile");
     } else {
-      history("/alumni-membership");
+      const { from } = location.state || { from: { pathname: "/" } };
+      navigate(from);
     }
   }, [user, loading]);
 

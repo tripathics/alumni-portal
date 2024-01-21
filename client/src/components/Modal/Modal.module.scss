@@ -7,6 +7,11 @@
   right: 0;
   z-index: 10000;
   padding: 4rem 1.5rem;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+.darkBG.active {
+  opacity: 1;
 }
 
 .darkBGOverlay {
@@ -26,7 +31,13 @@
   margin: auto;
   scroll-behavior: smooth;
   overflow-y: auto;
+  transform: translate3d(0, 1.5rem, 0);
+  transition: all 0.3s ease;
+}
+.darkBG.active .centered {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0.1s;
 }
 
 .modalHeader {

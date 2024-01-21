@@ -4,7 +4,7 @@ import cx from "classnames";
 import { Menu as MenuIcon, User as UserIcon } from "iconoir-react";
 import Avatar from "@/components/Avatar/Avatar";
 import { dataValueLookup } from "@/utils/data";
-import { useUser } from "@/contexts/user";
+import useUser from "@/hooks/useUser";
 import { useEffect, useRef, useState } from "react";
 
 const NavLi = ({ label, href, action = null, closeCollapsableNav }) => {

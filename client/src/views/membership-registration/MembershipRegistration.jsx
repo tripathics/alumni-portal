@@ -1,5 +1,5 @@
 import Header from "@/components/layouts/PageHeader";
-import { useUser } from "@/contexts/user";
+import useUser from "@/hooks/useUser";
 import MembershipLayout from "@/components/layouts/Dashboard";
 import SchemaForm, { Button } from "@/components/forms";
 import {

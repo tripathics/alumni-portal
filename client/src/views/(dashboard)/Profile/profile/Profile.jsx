@@ -10,7 +10,7 @@ import { dataValueLookup } from "@/utils/data";
 import ModalComponent from "@/components/Modal";
 import { useEffect, useState } from "react";
 import { profileApi } from "@/utils/api";
-import { useUser } from "@/contexts/user";
+import useUser from "@/hooks/useUser";
 import Avatar from "@/components/Avatar/Avatar";
 import styles from "@/components/layouts/Dashboard/Dashboard.module.scss";
 

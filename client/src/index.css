@@ -16,6 +16,21 @@ html {
   --text-muted: #6c757d;
 }
 
+/* scrollbar styling */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
 @media screen and (max-width: 768px) {
   html {
     --gutter-x: 2.2rem;

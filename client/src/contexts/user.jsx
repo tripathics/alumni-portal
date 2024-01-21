@@ -1,7 +1,7 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import useAuth from "../hooks/auth";
 
-const UserContext = createContext({});
+export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const { checkAuth, loading, login, user, fetchUser, admin, logout } =
@@ -16,5 +16,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-export const useUser = () => useContext(UserContext);
 export default UserProvider;
