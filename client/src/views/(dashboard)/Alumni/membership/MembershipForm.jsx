@@ -66,15 +66,16 @@ const MembershipForm = () => {
     </section>
   ) : (
     <>
+      <section className={cx(styles["box"], styles["alert"])}>
+        <InfoIcon className={styles["icon"]} />
+        <p>
+          Make sure your details are correct before applying for life
+          membership. Go to your <NavLink to="/profile">profile</NavLink> to
+          make any corrections.
+        </p>
+      </section>
       <section className={styles["box"]}>
-        <div className={styles["alert"]}>
-          <InfoIcon className={styles["icon"]} />
-          <p>
-            Make sure your details are correct before applying for life
-            membership. Go to your <NavLink to="/profile">profile</NavLink> to
-            make any corrections.
-          </p>
-        </div>
+        <h1 className={styles["title"]}>Profile details</h1>
         <div className={styles["box-table"]}>
           <div className={cx(styles["box-row"], styles.header)}>
             <div className={styles["col"]}>

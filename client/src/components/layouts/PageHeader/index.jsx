@@ -26,8 +26,8 @@ const PageHeader = ({
       <div className={cx("container", styles["heading-wrapper"])}>
         {pageHeading && <h1 className={styles["page-title"]}>{pageHeading}</h1>}
         {subHeading && <p>{subHeading}</p>}
+        {children && children}
       </div>
-      {children && children}
     </header>
   );
 };

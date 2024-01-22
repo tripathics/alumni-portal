@@ -62,9 +62,12 @@ users.route('/users/login').post(clearSession, (req, res, next) => {
   const { email, password } = req.body;
 
   // get user details from users table along with their full name and avatar from profiles table
-  db.query(`SELECT users.*, profiles.title, profiles.firstName, profiles.lastName, profiles.avatar
+  db.query(`SELECT users.*, profiles.title, profiles.firstName, profiles.lastName, profiles.avatar, 
+  membership_applications.status = "pending" as profileLocked
   FROM users
-  LEFT JOIN profiles ON users.id = profiles.userId WHERE users.email = ?`, [email], (err, results) => {
+  LEFT JOIN profiles ON users.id = profiles.userId
+  LEFT JOIN membership_applications ON users.id = membership_applications.userId 
+  WHERE users.email = ?`, [email], (err, results) => {
     if (err) return next(err);
 
     if (results.length === 0) {
@@ -100,6 +103,7 @@ users.route('/users/profile').post(authenticate, (req, res, next) => {
   const sql = 'SELECT * FROM profiles WHERE userId = ?';
   db.query(sql, [user.id], (err, results) => {
     if (err) return next(err);
+    console.log(results);
 
     res.status(200).json({
       success: true,
@@ -112,19 +116,25 @@ users.route('/users/update-profile').post(authenticate, (req, res, next) => {
   const user = req.user;
   const body = req.body;
 
-  const keys = profileKeys.filter(key => body[key] !== undefined && key !== 'userId');
-
-  const placeholders = keys.map(() => "?").join(", ");
-  const values = [user.id, ...keys.map(key => body[key])];
-  const sql = `
-    INSERT INTO profiles (userId, ${keys.join(", ")})
-    VALUES (?, ${placeholders})
-    ON DUPLICATE KEY UPDATE ${keys.map(key => `${key} = VALUES(${key})`).join(", ")}
-  `;
-  db.query(sql, values, (err, results) => {
+  // don't allow if there is already pending membership application as profile is locked
+  db.query(`SELECT * FROM membership_applications WHERE userId = ? AND status = "pending"`, [user.id], (err, results) => {
     if (err) return next(err);
-    console.log(results);
-    res.status(200).json({ message: 'Profile updated', success: true });
+    if (results.length) return res.status(400).json({ message: 'Profile is locked', success: false });
+
+    const keys = profileKeys.filter(key => body[key] !== undefined && key !== 'userId');
+
+    const placeholders = keys.map(() => "?").join(", ");
+    const values = [user.id, ...keys.map(key => body[key])];
+    const sql = `
+      INSERT INTO profiles (userId, ${keys.join(", ")})
+      VALUES (?, ${placeholders})
+      ON DUPLICATE KEY UPDATE ${keys.map(key => `${key} = VALUES(${key})`).join(", ")}
+    `;
+    db.query(sql, values, (err, results) => {
+      if (err) return next(err);
+      console.log(results);
+      res.status(200).json({ message: 'Profile updated', success: true });
+    });
   });
 });
 
@@ -142,9 +152,13 @@ users.route('/users/update-avatar').post(authenticate, uploadAvatar, (req, res, 
 
 users.route('/users').get(authenticate, (req, res, next) => {
   let id = req.user.role === 'admin' ? req.query.id : req.user.id;
-  db.query(`SELECT users.id, users.email, users.role, profiles.title, profiles.firstName, profiles.lastName, profiles.avatar
+  db.query(`SELECT users.id, users.email, users.role, 
+  profiles.title, profiles.firstName, profiles.lastName, profiles.avatar, 
+  membership_applications.status = "pending" as profileLocked
   FROM users
-  LEFT JOIN profiles ON users.id = profiles.userId WHERE users.id = ?`, [id], (err, results) => {
+  LEFT JOIN profiles ON users.id = profiles.userId
+  LEFT JOIN membership_applications ON users.id = membership_applications.userId
+  WHERE users.id = ?`, [id], (err, results) => {
     if (err) return next(err);
 
     res.status(200).json({

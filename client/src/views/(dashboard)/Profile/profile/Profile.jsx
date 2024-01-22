@@ -3,8 +3,8 @@ import cx from "classnames";
 import {
   EditPencil,
   InfoCircle as InfoIcon,
-  Trash as TrashIcon,
-  Upload as UploadIcon,
+  // Trash as TrashIcon,
+  // Upload as UploadIcon,
 } from "iconoir-react";
 import { dataValueLookup } from "@/utils/data";
 import ModalComponent from "@/components/Modal";
@@ -13,69 +13,7 @@ import { profileApi } from "@/utils/api";
 import useUser from "@/hooks/useUser";
 import Avatar from "@/components/Avatar/Avatar";
 import styles from "@/components/layouts/Dashboard/Dashboard.module.scss";
-
-const ProfilePictureUpload = ({ avatar = null, updateAvatar }) => {
-  const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(avatar);
-
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFile(file);
-      setFileUrl(URL.createObjectURL(file));
-    } else {
-      setFile(null);
-      setFileUrl(null);
-    }
-  };
-
-  const removeAvatar = () => {
-    if (!file && !avatar) return;
-    setFile(null);
-    setFileUrl(null);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    updateAvatar(file);
-  };
-
-  return (
-    <div className={cx(styles.box, styles["avatar-upload"])}>
-      <Avatar avatar={fileUrl} className={styles["avatar-crop"]} />
-      <div className={styles["avatar-upload-info"]}>
-        <p>
-          For best results, use an image at least 200px by 200px in .jpg format
-        </p>
-      </div>
-      <form className={styles["avatar-upload-form"]}>
-        <div className={styles["avatar-upload-actions"]}>
-          <label className={styles.uploadBtn}>
-            <UploadIcon />
-            {fileUrl ? "Change picture" : "Upload picture"}
-            <input
-              style={{ display: "none" }}
-              type="file"
-              name="avatar"
-              onChange={handleAvatarChange}
-            />
-          </label>
-          {fileUrl && (
-            <Button onClick={removeAvatar}>
-              <TrashIcon />
-              Remove picture
-            </Button>
-          )}
-          {avatar !== fileUrl && (
-            <Button onClick={handleSubmit} className="primary">
-              Save changes
-            </Button>
-          )}
-        </div>
-      </form>
-    </div>
-  );
-};
+import ProfilePictureUpload from "@/components/forms/AvatarUpload";
 
 const PersonalDetailsForm = ({ prefillData, onSubmit }) => {
   return (
@@ -295,6 +233,7 @@ const PersonalDetails = () => {
     return () => {
       fetchUser();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return personalDetails?.registrationNo ? (

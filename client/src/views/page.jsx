@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Header bgImage="https://nitap.ac.in/storage/gallery/e0c42cb31ccd84b7c28149fe2643ff52.jpg">
-        <div className={cx("container", styles.header)}>
+        <div className={cx(styles.header)}>
           <div className={styles["header-content"]}>
             <h1 className={styles.heading}>
               Celebrating the 10th convocation of NIT Arunachal Pradesh

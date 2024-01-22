@@ -13,6 +13,7 @@ import {
   Book as BookIcon,
   Settings as SettingsIcon,
   LogOut as LogOutIcon,
+  Lock,
 } from "iconoir-react";
 
 const Profile = () => {
@@ -51,14 +52,32 @@ const Profile = () => {
   return (
     <>
       <Header
-        pageHeading={user?.isProfileIncomplete ? "Create Profile" : "Profile"}
-        subHeading={
-          user?.isProfileIncomplete
-            ? "Create your profile by filling in personal, academic and professional details."
-            : "Manage and update your profile."
-        }
+        pageHeading={"Profile"}
+        // subHeading={
+        //   user?.profileLocked
+        //     ? "Profile is locked for editing until your membership application is resolved."
+        //     : "Manage and update your profile."
+        // }
         bgImage="/header-bg/2023-04-09.jpg"
-      />
+      >
+        {user.profileLocked ? (
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              alignItems: "center",
+            }}
+          >
+            <Lock />
+            <p>
+              Profile is locked for editing until your membership application is
+              resolved.
+            </p>
+          </div>
+        ) : (
+          <p>Manage and update your profile</p>
+        )}
+      </Header>
       <div className="__page-content container">
         <DashboardLayout navigations={navigations}>
           <Outlet />

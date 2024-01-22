@@ -33,7 +33,7 @@ const profile = () => fetch('/api/users/profile', {
 }).then(checkResponse).catch(err => console.log(err))
 
 const user = (id) => {
-  const fetchUrl = id ? `/api/user?id=${id}` : `/api/users`;
+  const fetchUrl = id ? `/api/users?id=${id}` : `/api/users`;
   return fetch(fetchUrl, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
