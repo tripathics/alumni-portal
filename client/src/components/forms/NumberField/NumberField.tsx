@@ -39,8 +39,8 @@ const NumberField: React.ForwardRefExoticComponent<
     }
 
     const range: { min?: number; max?: number } = {};
-    if (min) range.min = min;
-    if (max) range.max = max;
+    if (min) range.min = typeof min === "string" ? parseInt(min) : min;
+    if (max) range.max = typeof max === "string" ? parseInt(max) : max;
     return (
       <div className={styles["field-wrapper"]}>
         <div className={styles["form-field"]}>
