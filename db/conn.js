@@ -18,7 +18,7 @@ module.exports = {
 
     db.connect(function (err) {
       if (err) {
-        return console.error('error: ' + err.message);
+        return console.error('DB connection error: ' + err.message);
       }
       _db = db;
 
