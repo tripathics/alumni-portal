@@ -25,9 +25,9 @@ const authenticate = async (req, res, next) => {
     // log error
     console.log(err.message);
     if (err.message === 'Invalid jwt')
-      res.clearCookie('auth').status(400).json({ message: 'Invalid jwt', error: true });
+      res.clearCookie('auth').status(401).json({ message: 'Invalid jwt', error: true });
     else
-      res.status(400).json({ message: err.message, error: true });
+      res.status(401).json({ message: err.message, error: true });
   }
 }
 

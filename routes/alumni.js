@@ -9,7 +9,7 @@ alumni.get('/alumni/membership-prefill', authenticate, (req, res, next) => {
 
   const sql = `SELECT profiles.title, profiles.firstName, profiles.lastName, profiles.dob, 
     profiles.category, profiles.nationality, profiles.religion, 
-    profiles.address, profiles.pincode, profiles.city, profiles.country, 
+    profiles.address, profiles.pincode, profiles.city, profiles.state, profiles.country, 
     profiles.phone, profiles.altPhone, users.email, profiles.altEmail, 
     profiles.registrationNo, profiles.rollNo,
     academics.degree, academics.discipline, academics.endDate, membership_applications.status 
@@ -93,5 +93,19 @@ alumni.post('/alumni/membership', authenticate, uploadSign, (req, res, next) => 
     }
   });
 });
+
+alumni.get('/alumni/applications', (req, res, next) => {
+  const sql = `SELECT CONCAT(profiles.title, ' ', profiles.firstName, ' ', profiles.lastName) as Name
+  FROM profiles WHERE profiles.userId IN (SELECT userId FROM membership_applications WHERE status = 'pending')`;
+
+  db.query(sql, (err, results) => {
+    if (err) return next(err);
+
+    res.status(200).json({
+      success: true,
+      data: results,
+    });
+  })
+})
 
 module.exports = alumni;

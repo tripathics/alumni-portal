@@ -81,7 +81,7 @@ users.route('/users/login').post(clearSession, (req, res, next) => {
       console.log(user);
       try {
         const token = jwt.sign({ id: user.id }, SECRET, { expiresIn: expiresInMin * 60 });
-        res.cookie('auth', token, { maxAge: expiresInMin * 60 * 1000 }).json({ message: 'User logged in', user: user, success: true });
+        res.cookie('auth', token, { maxAge: expiresInMin * 60 * 1000, httpOnly: true }).json({ message: 'User logged in', user: user, success: true });
       } catch (err) {
         next(err);
       }
@@ -89,16 +89,16 @@ users.route('/users/login').post(clearSession, (req, res, next) => {
   });
 });
 
-users.route('/users/auth').post(authenticate, (req, res) => {
+users.route('/users/auth').get(authenticate, (req, res) => {
   const user = req.user;
-  res.status(200).json({ message: 'User authenticated', success: true, admin: user.admin });
+  res.status(200).json({ message: 'User authenticated', success: true });
 });
 
 users.route('/users/logout').post(authenticate, (req, res) => {
   res.clearCookie('auth').json({ message: 'User logged out', success: true });
 });
 
-users.route('/users/profile').post(authenticate, (req, res, next) => {
+users.route('/users/profile').get(authenticate, (req, res, next) => {
   const user = req.user;
   const sql = 'SELECT * FROM profiles WHERE userId = ?';
   db.query(sql, [user.id], (err, results) => {
@@ -151,6 +151,10 @@ users.route('/users/update-avatar').post(authenticate, uploadAvatar, (req, res, 
 });
 
 users.route('/users').get(authenticate, (req, res, next) => {
+  if (req.user.role !== 'admin' && req.query.id) {
+    return res.status(401).json({ message: 'Unauthorized', success: false });
+  }
+
   let id = req.user.role === 'admin' ? req.query.id : req.user.id;
   db.query(`SELECT users.id, users.email, users.role, 
   profiles.title, profiles.firstName, profiles.lastName, profiles.avatar, 

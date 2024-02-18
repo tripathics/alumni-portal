@@ -20,7 +20,7 @@ CREATE TABLE profiles (
     lastName varchar(64),
     dob varchar(10) NOT NULL,
     sex SET('male', 'female', 'others') NOT NULL,
-    category  varchar(10),
+    category  SET('general', 'obc', 'sc', 'st', 'others') NOT NULL,
     nationality varchar(15) NOT NULL,
     religion varchar(16),
     address varchar(128) NOT NULL,

@@ -1,0 +1,19 @@
+.dropdown {
+  position: relative;
+
+  .render {
+    position: absolute;
+    top: 100%;
+    margin-top: 0.25rem;
+  }
+  .render.right {
+    right: 0;
+  }
+  .render.left {
+    left: 0;
+  }
+  .render.center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
