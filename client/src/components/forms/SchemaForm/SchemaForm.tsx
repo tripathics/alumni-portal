@@ -4,6 +4,7 @@ import styles from "../Form.module.scss";
 import Textarea from "../Textarea/Textarea";
 import FileInput from "../FileInput/FileInput";
 import { SchemaField } from "./Schema.type";
+import FormSectionSection from "../FormSectionHeading";
 
 interface SchemaFormProps {
   schema: SchemaField[];
@@ -145,9 +146,7 @@ const SchemaForm: React.FC<SchemaFormProps> = ({
           );
         } else if (field.type === "section") {
           return (
-            <h3 className={styles["section-title"]} key={index}>
-              {field.label}
-            </h3>
+            <FormSectionSection label={field.label} key={index} />
           );
         } else {
           return <p key={index}>Invalid field</p>;

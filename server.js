@@ -4,6 +4,7 @@ const cors = require('cors');
 const cookies = require('cookie-parser');
 const path = require('path');
 const dbo = require('./db/conn');
+const { connectToServer, getDb } = require('./db/conn_new');
 
 const app = express();
 
@@ -30,27 +31,83 @@ const initializeStorage = () => {
 }
 
 const port = process.env.SERVER_PORT || 5000;
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log('Server listening to port', port, ' Environment:', process.env.NODE_ENV);
-  dbo.connectToServer(() => {
-    initializeStorage();
+  // dbo.connectToServer(() => {
+  //   initializeStorage();
 
-    // middlewares for api routes
-    app.use('/api', require('./routes/users'));
-    app.use('/api', require('./routes/alumni'));
+  //   // middlewares for api routes
+  //   app.use('/api', require('./routes/users/users'));
+  //   app.use('/api', require('./routes/alumni'));
 
-    // middlewares for media routes
-    app.use('/media', require('./routes/media'));
+  //   // middlewares for media routes
+  //   app.use('/media', require('./routes/media'));
 
-    // middlewares for error handling
-    app.use(require('./middlewares/error'));
+  //   // middlewares for error handling
+  //   app.use(require('./middlewares/error'));
 
-    // serve react frontend (static files) from build folder in production environment
-    if (process.env.NODE_ENV === 'production') {
-      app.use(express.static(path.join(__dirname, 'client', 'dist')));
-      app.use((req, res, next) => {
-        res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-      });
-    }
-  });
+  //   app.use(require("./routes/otp/otp"));
+
+  //   // serve react frontend (static files) from build folder in production environment
+  //   if (process.env.NODE_ENV === 'production') {
+  //     app.use(express.static(path.join(__dirname, 'client', 'dist')));
+  //     app.use((req, res, next) => {
+  //       res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  //     });
+  //   }
+  // });
+
+  try {
+    await connectToServer(() => {
+      initializeStorage();
+  
+      // middlewares for api routes
+      app.use('/api', require('./routes/users/users'));
+      // app.use('/api', require('./routes/alumni'));
+  
+      // middlewares for media routes
+      // app.use('/media', require('./routes/media'));
+  
+      // middlewares for error handling
+      app.use(require('./middlewares/error'));
+  
+      app.use(require("./routes/otp/otp"));
+  
+      // serve react frontend (static files) from build folder in production environment
+      if (process.env.NODE_ENV === 'production') {
+        app.use(express.static(path.join(__dirname, 'client', 'dist')));
+        app.use((req, res, next) => {
+          res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+        });
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+  
+  // connectToServer().then(() => {
+  //   initializeStorage();
+
+  //   // middlewares for api routes
+  //   app.use('/api', require('./routes/users/users'));
+  //   // app.use('/api', require('./routes/alumni'));
+
+  //   // middlewares for media routes
+  //   // app.use('/media', require('./routes/media'));
+
+  //   // middlewares for error handling
+  //   app.use(require('./middlewares/error'));
+
+  //   app.use(require("./routes/otp/otp"));
+
+  //   // serve react frontend (static files) from build folder in production environment
+  //   if (process.env.NODE_ENV === 'production') {
+  //     app.use(express.static(path.join(__dirname, 'client', 'dist')));
+  //     app.use((req, res, next) => {
+  //       res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  //     });
+  //   }
+  // }).catch(err => {
+  //   console.error(err);
+  // });
 });

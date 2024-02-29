@@ -23,15 +23,15 @@ const Profile = () => {
     {
       title: "Profile",
       links: [
-        { name: "Personal Profile", path: "/profile", Icon: UserIcon },
+        { name: "Personal Profile", path: "", Icon: UserIcon },
         {
           name: "Education",
-          path: "/profile/education",
+          path: "education",
           Icon: BookIcon,
         },
         {
           name: "Experience",
-          path: "/profile/experience",
+          path: "experience",
           Icon: SuitcaseIcon,
         },
       ],
@@ -41,7 +41,7 @@ const Profile = () => {
       links: [
         {
           name: "Account settings",
-          path: "/profile/account",
+          path: "account",
           Icon: SettingsIcon,
         },
         { name: "Logout", path: "/", Icon: LogOutIcon, action: logout },

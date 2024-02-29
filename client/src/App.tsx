@@ -9,6 +9,7 @@ import Profile, {
   Experience,
   PersonalProfile,
 } from "./views/profile";
+import Admin, { Applications } from "./views/admin";
 import Alumni, { MembershipForm } from "./views/alumni";
 
 const router = createBrowserRouter([
@@ -42,6 +43,19 @@ const router = createBrowserRouter([
                     path: "status",
                     element: <h1>TODO: Status</h1>,
                   },
+                ],
+              },
+            ],
+          },
+          {
+            element: <PrivateRoutes />,
+            children: [
+              {
+                path: "admin",
+                element: <Admin />,
+                children: [
+                  { path: "", element: <h1>TODO: Dashboard</h1> },
+                  { path: "applications", element: <Applications /> },
                 ],
               },
             ],

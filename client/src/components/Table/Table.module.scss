@@ -1,0 +1,24 @@
+.table-wrapper {
+  overflow-x: auto;
+
+  .table {
+    width: 100%;
+
+    th {
+      border-bottom: 1px solid rgb(229, 231, 235);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-align: left;
+
+    }
+    td {
+      border-bottom: 1px solid rgb(242, 242, 242);
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 0.5rem 0;
+      padding-right: 1rem;
+    }
+  }
+}

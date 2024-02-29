@@ -5,6 +5,7 @@ CREATE DATABASE alumniDatabase;
 -- use the database 
 USE alumniDatabase;
 
+-- add createdAt and updatedAt columns in every table
 CREATE TABLE users (
     id char(36) NOT NULL DEFAULT (UUID()),
     email varchar(50) NOT NULL UNIQUE,
@@ -85,6 +86,20 @@ CREATE TABLE membership_applications (
     status SET('pending', 'approved', 'rejected') DEFAULT 'pending',
     PRIMARY KEY(userId),
     FOREIGN KEY(userId) REFERENCES profiles(userId)
+);
+
+CREATE TABLE otp_email (
+    email varchar(50) NOT NULL UNIQUE,
+    otp varchar(6) NOT NULL,
+    status BOOLEAN,
+    createdAt DATETIME DEFAULT NOW(),
+    PRIMARY KEY(email)
+);
+
+CREATE TABLE otp_email_attempts (
+    email varchar(50) NOT NULL UNIQUE,
+    attempts INTEGER DEFAULT 0,
+    PRIMARY KEY(email)
 );
 
 CREATE TABLE organisationDetails 
