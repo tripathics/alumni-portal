@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "description": "Vite React port of alumni-portal application",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "server": "node --watch server.js",
+    "server": "nodemon server.js",
     "client": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [
     "MERN",
@@ -20,6 +23,10 @@
   "devDependencies": {
     "@types/nodemailer": "^6.4.14",
     "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "nodemon": "^3.1.0",
     "sass": "^1.69.7"
   },
   "dependencies": {

@@ -1,9 +1,11 @@
-const jwt = require('jsonwebtoken');
-const db = require('../db/conn').getDb();
+import jwt from 'jsonwebtoken';
+import getDb from '../db/conn_new_new.js';
+
+const db = await getDb();
 const SECRET = process.env.JWT_SECRET;
 
 /**
- * This middleware checks if the user is already logged in and 
+ * This middleware checks if the user is already logged in and
  * clears the cookie and signs the user out if they are already logged in
  * @param {Request} req
  * @param {Response} res
@@ -19,13 +21,13 @@ const clearCookie = (req, res, next) => {
       if (err) return next();
       if (results.length === 0) return next();
       res.status(400).clearCookie('auth').json({
-        message: `User has been logged out.`,
-        error: true
+        message: 'User has been logged out.',
+        error: true,
       });
-    })
+    });
   } catch (err) {
     next();
   }
-}
+};
 
-module.exports = clearCookie;
+export default clearCookie;

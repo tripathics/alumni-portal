@@ -1,4 +1,5 @@
-import axios from "axios";
+import { AxiosError } from "axios";
+import axios from "../../config/axios.config";
 
 const logout = async (): Promise<
   | {

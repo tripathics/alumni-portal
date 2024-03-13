@@ -1,113 +1,27 @@
-const express = require('express');
+import { createRequire } from 'module';
+import { createServer } from 'http';
+import app from './config/express.config.js';
+import connectDb from './db/conn_new_new.js';
+import initializeStorage from './utility/fs.utility.js';
+
+const require = createRequire(import.meta.url);
 require('dotenv').config();
-const cors = require('cors');
-const cookies = require('cookie-parser');
-const path = require('path');
-const dbo = require('./db/conn');
-const { connectToServer, getDb } = require('./db/conn_new');
 
-const app = express();
+const server = createServer(app);
 
-app.use(cookies());
-app.use(express.json());
+const port = process.env.PORT;
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(cors({
-    origin: [`http://localhost:${process.env.PORT}`, 'http://localhost:3000'],
-    credentials: true
-  }));
-}
-
-const initializeStorage = () => {
-  const fs = require('fs');
-  const avatarsDir = path.join(__dirname, 'public', 'avatars');
-  if (!fs.existsSync(avatarsDir)) {
-    fs.mkdirSync(avatarsDir, { recursive: true });
-  }
-  const signDir = path.join(__dirname, 'private', 'sign');
-  if (!fs.existsSync(signDir)) {
-    fs.mkdirSync(signDir, { recursive: true });
-  }
-}
-
-const port = process.env.SERVER_PORT || 5000;
-app.listen(port, async () => {
-  console.log('Server listening to port', port, ' Environment:', process.env.NODE_ENV);
-  // dbo.connectToServer(() => {
-  //   initializeStorage();
-
-  //   // middlewares for api routes
-  //   app.use('/api', require('./routes/users/users'));
-  //   app.use('/api', require('./routes/alumni'));
-
-  //   // middlewares for media routes
-  //   app.use('/media', require('./routes/media'));
-
-  //   // middlewares for error handling
-  //   app.use(require('./middlewares/error'));
-
-  //   app.use(require("./routes/otp/otp"));
-
-  //   // serve react frontend (static files) from build folder in production environment
-  //   if (process.env.NODE_ENV === 'production') {
-  //     app.use(express.static(path.join(__dirname, 'client', 'dist')));
-  //     app.use((req, res, next) => {
-  //       res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-  //     });
-  //   }
-  // });
-
+const connect = async () => {
   try {
-    await connectToServer(() => {
-      initializeStorage();
-  
-      // middlewares for api routes
-      app.use('/api', require('./routes/users/users'));
-      // app.use('/api', require('./routes/alumni'));
-  
-      // middlewares for media routes
-      // app.use('/media', require('./routes/media'));
-  
-      // middlewares for error handling
-      app.use(require('./middlewares/error'));
-  
-      app.use(require("./routes/otp/otp"));
-  
-      // serve react frontend (static files) from build folder in production environment
-      if (process.env.NODE_ENV === 'production') {
-        app.use(express.static(path.join(__dirname, 'client', 'dist')));
-        app.use((req, res, next) => {
-          res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-        });
-      }
+    await connectDb();
+    initializeStorage();
+
+    server.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(`Failed to connect to the database: ${error}`);
   }
-  
-  // connectToServer().then(() => {
-  //   initializeStorage();
+};
 
-  //   // middlewares for api routes
-  //   app.use('/api', require('./routes/users/users'));
-  //   // app.use('/api', require('./routes/alumni'));
-
-  //   // middlewares for media routes
-  //   // app.use('/media', require('./routes/media'));
-
-  //   // middlewares for error handling
-  //   app.use(require('./middlewares/error'));
-
-  //   app.use(require("./routes/otp/otp"));
-
-  //   // serve react frontend (static files) from build folder in production environment
-  //   if (process.env.NODE_ENV === 'production') {
-  //     app.use(express.static(path.join(__dirname, 'client', 'dist')));
-  //     app.use((req, res, next) => {
-  //       res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-  //     });
-  //   }
-  // }).catch(err => {
-  //   console.error(err);
-  // });
-});
+connect();

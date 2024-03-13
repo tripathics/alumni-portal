@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import axios from "../../config/axios.config";
 import { ExperienceType } from "@/types/Profile.type";
 
 const fetchExperiences = async (): Promise<

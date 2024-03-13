@@ -4,9 +4,10 @@
  * @param {Request} req
  * @param {Response} res
  */
-function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res) {
   console.error(err);
-  let statusCode = 500, message = 'An error occured';
+  let statusCode = 500;
+  let message = 'An error occured';
   if (err.code === 'ER_DUP_ENTRY' && err.sqlMessage.includes('email')) {
     statusCode = 400;
     message = 'Email already exists';
@@ -20,7 +21,7 @@ function errorHandler(err, req, res, next) {
     message = 'File size too large';
   }
 
-  res.status(statusCode).json({ message: message, success: false });
+  res.status(statusCode).json({ message, success: false });
 }
 
-module.exports = errorHandler;
+export default errorHandler;

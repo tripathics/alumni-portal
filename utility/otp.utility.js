@@ -1,10 +1,17 @@
-const nodemailer = require('nodemailer');
-const router = require('express').Router();
-const db = require('../db/conn_new').getDb();
+import { createRequire } from 'module';
+import { createTransport } from 'nodemailer';
+import { Router } from 'express';
+import getDb from '../db/conn_new_new.js';
 
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  host: "smtp.gmail.com",
+const require = createRequire(import.meta.url);
+require('dotenv').config();
+
+const router = Router();
+const db = await getDb();
+
+const transporter = createTransport({
+  service: 'Gmail',
+  host: 'smtp.gmail.com',
   port: 465,
   secure: false,
   auth: {
@@ -14,41 +21,39 @@ const transporter = nodemailer.createTransport({
   tls: {
     ciphers: 'SSLv3',
     rejectUnauthorized: false,
-  }
-})
-transporter.verify((error, success) => {
+  },
+});
+transporter.verify((error) => {
   if (error) {
     console.log(error);
     return error;
-  } else {
-    console.log('SMTP connection verified! Ready for emails')
   }
-})
+  console.log('SMTP connection verified! Ready for emails');
+});
 
-const emailRegex =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const generateOTP = async (email) => {
   // check if email is valid
   if (!emailRegex.test(email)) {
-    throw new Error("Invalid email");
+    throw new Error('Invalid email');
   }
 
   const otp = Math.floor(Math.random() * 10e5).toString().padEnd(6, '0');
   // store the otp in database
   try {
-    const [result, fields] = await db.query(`SELECT * FROM otp_email_attempts WHERE email = ?`, [email]);
+    const [result] = await db.query('SELECT * FROM otp_email_attempts WHERE email = ?', [email]);
     if (result.length === 0) {
-      await db.query(`INSERT INTO otp_email_attempts (email) VALUES (?)`, [email]);
+      await db.query('INSERT INTO otp_email_attempts (email) VALUES (?)', [email]);
       await db.query(`
         INSERT INTO otp_email (email, otp, status) VALUES (?, ?, false)
         ON DUPLICATE KEY UPDATE otp = ?, status = false
         `, [email, otp, otp]);
     } else {
       if (result[0].attempts >= 5 && result[0].email === email) {
-        throw new Error("OTP: Max limit reached");
+        throw new Error('OTP: Max limit reached');
       }
-      await db.query(`UPDATE otp_email_attempts SET attempts = ? WHERE email = ?`, [result[0].attempts + 1, email]);
+      await db.query('UPDATE otp_email_attempts SET attempts = ? WHERE email = ?', [result[0].attempts + 1, email]);
       if (result[0].attempts + 1 >= 5) {
         // schedule a job for resetting attempts to 0 for that email 24 hrs later
       }
@@ -60,46 +65,45 @@ const generateOTP = async (email) => {
     return { otp, email };
   } catch (err) {
     console.error(err);
-    throw new Error("Error generating OTP");
+    throw new Error('Error generating OTP');
   }
-}
+};
 
 const verifyOtp = async (otp, email) => {
   // search the email in otp_email table
   if (!emailRegex.test(email)) {
-    throw new Error("Invalid email");
+    throw new Error('Invalid email');
   }
-  if (otp.length !== 6 || isNaN(otp)) {
-    throw new Error("Invalid OTP");
+  if (otp.length !== 6 || Number.isNaN(otp)) {
+    throw new Error('Invalid OTP');
   }
   try {
-    const [result, fields] = await db.query(`SELECT * FROM otp_email WHERE email = ?`, [email]);
-    if (result.length === 0) {
-      throw new Error("OTP Expired");
+    const [otps] = await db.query('SELECT * FROM otp_email WHERE email = ?', [email]);
+    if (otps.length === 0) {
+      throw new Error('OTP Expired');
     }
-    if (result[0].otp === otp) {
-      await db.query(`DELETE FROM otp_email WHERE email = ?`, [email]);
+    if (otps[0].otp === otp) {
+      await db.query('DELETE FROM otp_email WHERE email = ?', [email]);
       return {
         message: `OTP Verified for ${email}`,
-        success: true
-      }
-    } else {
-      // increment the number of attempts in otp_email_attempts
-      const [result, fields] = await db.query('SELECT * FROM otp_email_attempts WHERE email = ?', [email]);
-      const attempts = result[0] ? result[0].attempts + 1 : 1;
-      await db.query(`INSERT INTO otp_email_attempts (email, attempts) VALUES (?, ?) 
-      ON DUPLICATE KEY UPDATE attempts = ?
-      `, [email, attempts, attempts]);
-      return {
-        success: false,
-        message: `Incorrect OTP. ${5 - attempts} attempts left`
-      }
+        success: true,
+      };
     }
+    // increment the number of attempts in otp_email_attempts
+    const [otpAttempts] = await db.query('SELECT * FROM otp_email_attempts WHERE email = ?', [email]);
+    const attempts = otpAttempts[0] ? otpAttempts[0].attempts + 1 : 1;
+    await db.query(`INSERT INTO otp_email_attempts (email, attempts) VALUES (?, ?) 
+    ON DUPLICATE KEY UPDATE attempts = ?
+    `, [email, attempts, attempts]);
+    return {
+      success: false,
+      message: `Incorrect OTP. ${5 - attempts} attempts left`,
+    };
   } catch (err) {
     console.error(err);
-    throw new Error("Error verifying OTP");
+    throw new Error('Error verifying OTP');
   }
-}
+};
 
 const sendOtpEmail = (otp, email) => {
   const emailHtml = `
@@ -212,29 +216,29 @@ NIT Arunachal Pradesh
   const mailOptions = {
     from: process.env.NODEMAILER_EMAIL,
     to: email,
-    subject: 'NIT AP Alumni OTP - ' + otp,
-    html: emailHtml
-  }
+    subject: `NIT AP Alumni OTP - ${otp}`,
+    html: emailHtml,
+  };
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.log(err, 'Error sending email')
-      throw new Error("Error sending OTP email")
+      console.log(err, 'Error sending email');
+      throw new Error('Error sending OTP email');
     }
     console.log(info);
     return {
       message: `OTP ${otp} sent to ${email}`,
-      success: true
-    }
-  })
-}
+      success: true,
+    };
+  });
+};
 
 router.get('/send-email', (req, res, next) => {
   const mailOptions = {
     from: process.env.NODEMAILER_EMAIL,
-    to: "shyam.bonkers@gmail.com",
-    subject: "Test email",
-    text: "This is a test email"
-  }
+    to: 'shyam.bonkers@gmail.com',
+    subject: 'Test email',
+    text: 'This is a test email',
+  };
 
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
@@ -244,12 +248,12 @@ router.get('/send-email', (req, res, next) => {
     console.log(info);
     res.status(200).json({
       success: true,
-      message: "Email sent"
+      message: 'Email sent',
     });
-  })
-})
+  });
+});
 
-module.exports = {
+export {
   generateOTP,
   verifyOtp,
   sendOtpEmail,
