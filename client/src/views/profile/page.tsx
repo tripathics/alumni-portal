@@ -95,7 +95,7 @@ const PersonalDetails = () => {
     <>
       <section className={cx(styles.box, styles["basic-info-wrapper"])}>
         <div className={styles["actions"]}>
-          {user?.profileLocked ? (
+          {user?.profile_locked ? (
             <Button disabled>
               <EditPencil />
               Edit

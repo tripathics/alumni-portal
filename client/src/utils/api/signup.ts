@@ -8,7 +8,7 @@ export interface SignupFormData {
 }
 const signup = async (
   data: SignupFormData
-): Promise<{ message: string; success: boolean } | undefined> => {
+): Promise<{ id: string; email: string; role: string } | undefined> => {
   try {
     const response = await axios.request({
       method: "POST",

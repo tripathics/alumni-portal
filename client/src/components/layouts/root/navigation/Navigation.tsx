@@ -99,14 +99,14 @@ const Navbar: React.FC = () => {
                         {user.avatar && (
                           <Avatar avatar={user.avatar} size="6rem" />
                         )}
-                        {user.firstName ? (
+                        {user.first_name ? (
                           <div className={styles["user-name"]}>
                             {
                               dataValueLookup[
                                 user.title as keyof typeof dataValueLookup
                               ]
                             }{" "}
-                            {user.firstName} {user.lastName}
+                            {user.first_name} {user.last_name}
                           </div>
                         ) : (
                           <div className={styles["message"]}>

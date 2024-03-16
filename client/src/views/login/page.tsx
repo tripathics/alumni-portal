@@ -42,7 +42,7 @@ const Login = () => {
 
   useEffect(() => {
     if (loading || !user) return;
-    if (!(user.firstName && user.lastName && user.title)) {
+    if (!(user.first_name && user.last_name && user.title)) {
       navigate("/profile");
     } else {
       const { from } = location.state || { from: { pathname: "/" } };

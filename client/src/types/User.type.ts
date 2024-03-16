@@ -3,10 +3,10 @@ export interface UserType {
   email: string;
   role: "user" | "admin" | "alumni";
   title: "mr" | "mrs" | "miss" | "dr";
-  firstName: string;
-  lastName?: string | null;
+  first_name: string;
+  last_name?: string | null;
   avatar: string;
-  profileLocked: boolean;
+  profile_locked: boolean;
 }
 
 export interface UserContextType {

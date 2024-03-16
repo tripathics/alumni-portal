@@ -52,7 +52,7 @@ const Profile = () => {
   return (
     <>
       <Header pageHeading={"Profile"} bgImage="/header-bg/2023-04-09.jpg">
-        {user?.profileLocked ? (
+        {user?.profile_locked ? (
           <div
             style={{
               display: "flex",
