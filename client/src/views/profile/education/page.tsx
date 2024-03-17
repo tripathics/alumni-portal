@@ -90,15 +90,15 @@ const EducationRow: React.FC<EducationRowProps> = ({ data, openEditModal }) => {
             {dataValueLookup[data.type]}) in {data.discipline}
           </p>
           <p className={cx(styles["course-duration"])}>
-            {new Date(data.startDate).toLocaleString("default", {
+            {new Date(data.start_date).toLocaleString("default", {
               month: "short",
             })}{" "}
-            {new Date(data.startDate).getFullYear()} -{" "}
-            {new Date(data.endDate).toLocaleString("default", {
+            {new Date(data.start_date).getFullYear()} -{" "}
+            {new Date(data.end_date).toLocaleString("default", {
               month: "short",
             })}{" "}
-            {new Date(data.endDate).getFullYear()}
-            {new Date(data.endDate) > new Date() ? " (Expected)" : ""}
+            {new Date(data.end_date).getFullYear()}
+            {new Date(data.end_date) > new Date() ? " (Expected)" : ""}
           </p>
         </div>
         {!!data.description && (
@@ -144,7 +144,7 @@ const Education: React.FC = () => {
     try {
       const data = await fetchEducationApi();
       if (data) {
-        setEducations(data.educationList || []);
+        setEducations(data.educationRecords || []);
       }
     } catch (error) {
       console.error(error);

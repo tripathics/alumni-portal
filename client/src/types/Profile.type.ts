@@ -1,11 +1,13 @@
 export interface PersonalDetailsType {
-  userId: string;
+  user_id: string;
   title: "mr" | "mrs" | "ms" | "dr";
-  firstName: string;
-  lastName: string | null;
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: string[];
   dob: string;
   sex: "male" | "female" | "others";
-  category: "gen" | "obc" | "sc" | "st" | "ews" | "others";
+  category: "gen" | "obc" | "sc" | "st" | "others";
   nationality: string;
   religion: string | null;
   address: string;
@@ -14,14 +16,15 @@ export interface PersonalDetailsType {
   city: string;
   country: string;
   phone: string;
-  altPhone: string | null;
-  altEmail: string | null;
+  alt_phone: string | null;
+  alt_email: string | null;
   linkedin: string | null;
   github: string | null;
-  registrationNo: string;
-  rollNo: string;
+  registration_no: string;
+  roll_no: string;
   sign: string | null;
   avatar: string | null;
+  profile_locked: boolean | null;
 }
 
 export interface EducationType {
@@ -30,9 +33,9 @@ export interface EducationType {
   degree: string;
   type: "part-time" | "full-time";
   discipline: string;
-  startDate: string;
-  endDate: string;
-  description: string;
+  start_date: string;
+  end_date: string;
+  description: string | null;
 }
 
 export interface ExperienceType {
@@ -41,8 +44,8 @@ export interface ExperienceType {
   organization: string;
   designation: string;
   location: string;
-  startDate: string;
-  endDate: string;
+  start_date: string;
+  end_date: string | null;
   ctc: number;
-  description: string;
+  description: string | null;
 }

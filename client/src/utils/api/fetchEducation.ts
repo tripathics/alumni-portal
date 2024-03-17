@@ -3,7 +3,7 @@ import axios from "../../config/axios.config";
 import { EducationType } from "@/types/Profile.type";
 
 const fetchEducation = async (): Promise<
-  | { message: string; success: boolean; educationList?: EducationType[] }
+  | { message: string; success: boolean; educationRecords: EducationType[] }
   | undefined
 > => {
   try {

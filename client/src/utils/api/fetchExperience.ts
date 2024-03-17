@@ -3,7 +3,7 @@ import axios from "../../config/axios.config";
 import { ExperienceType } from "@/types/Profile.type";
 
 const fetchExperiences = async (): Promise<
-  | { message: string; success: boolean; experienceList?: ExperienceType[] }
+  | { message: string; success: boolean; experienceRecords: ExperienceType[] }
   | undefined
 > => {
   try {

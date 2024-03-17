@@ -14,6 +14,7 @@ import {
 } from "iconoir-react";
 import axiosInstance from "@/config/axios.config";
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 const OTPForm: React.FC<{
   sendOtp: (formData: FieldValues) => void;
@@ -198,6 +199,7 @@ const Register = () => {
       setLoading(true);
       const data = await signupApi(signupFormData as SignupFormData);
       if (data?.id) {
+        toast.success("Account created successfully. Please login.");
         navigate("/login");
       }
     } catch (error) {

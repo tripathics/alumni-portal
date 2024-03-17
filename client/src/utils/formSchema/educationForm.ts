@@ -36,13 +36,13 @@ export const educationFormNITAPSchema: SchemaField[] = [
     required: "Discipline is required",
   },
   {
-    name: "startDate",
+    name: "start_date",
     label: "Start date",
     type: "date",
     required: "Start date is required",
   },
   {
-    name: "endDate",
+    name: "end_date",
     label: "End date",
     type: "date",
     required: "End date is required",
@@ -79,13 +79,13 @@ export const educationFormSchema: SchemaField[] = [
     required: "Discipline is required",
   },
   {
-    name: "startDate",
+    name: "start_date",
     label: "Start date",
     type: "date",
     required: "Start date is required",
   },
   {
-    name: "endDate",
+    name: "end_date",
     label: "End date (or expected)",
     type: "date",
     required: "End date is required",

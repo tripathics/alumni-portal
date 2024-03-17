@@ -18,7 +18,7 @@ const useAuth = (): UserContextType => {
         return;
       }
       setUser(response.user);
-      setAdmin(response.user.role === "admin");
+      setAdmin(response.user.role.includes("admin"));
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -32,7 +32,7 @@ const useAuth = (): UserContextType => {
       const data = await loginApi(loginFormData);
       if (data?.user) {
         setUser(data.user);
-        setAdmin(data.user.role === "admin");
+        setAdmin(data.user.role.includes("admin"));
       }
     } catch (error) {
       throw error as string;

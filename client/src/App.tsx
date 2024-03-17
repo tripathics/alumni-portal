@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./contexts/user";
 import RootLayout from "./components/layouts/root";
 import AuthLayout from "./components/layouts/auth";
@@ -11,6 +12,7 @@ import Profile, {
 } from "./views/profile";
 import Admin, { Applications } from "./views/admin";
 import Alumni, { MembershipForm } from "./views/alumni";
+import "react-toastify/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -76,9 +78,12 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <UserProvider>
-      <RouterProvider router={router} />
-    </UserProvider>
+    <>
+      <UserProvider>
+        <ToastContainer />
+        <RouterProvider router={router} />
+      </UserProvider>
+    </>
   );
 };
 

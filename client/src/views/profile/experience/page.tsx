@@ -59,14 +59,14 @@ const ExperienceRow: React.FC<ExperienceRowProps> = ({
           </p>
           <p className={cx(styles["course-name"])}>{data.location}</p>
           <p className={cx(styles["course-duration"])}>
-            {new Date(data.startDate).toLocaleString("default", {
+            {new Date(data.start_date).toLocaleString("default", {
               month: "short",
             })}{" "}
-            {new Date(data.startDate).getFullYear()} -{" "}
-            {data.endDate
-              ? `${new Date(data.endDate).toLocaleString("default", {
+            {new Date(data.start_date).getFullYear()} -{" "}
+            {data.end_date
+              ? `${new Date(data.end_date).toLocaleString("default", {
                   month: "short",
-                })} ${new Date(data.endDate).getFullYear()}`
+                })} ${new Date(data.end_date).getFullYear()}`
               : "Present"}
           </p>
         </div>
@@ -126,7 +126,7 @@ const Experience: React.FC = () => {
     try {
       const response = await fetchExperiencesApi();
       if (response?.success) {
-        setExperiences(response.experienceList ? response.experienceList : []);
+        setExperiences(response.experienceRecords || []);
       }
     } catch (error) {
       console.error(error);

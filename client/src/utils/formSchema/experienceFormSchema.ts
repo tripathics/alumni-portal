@@ -31,13 +31,13 @@ const experienceFormSchema: SchemaField[] = [
     required: "Location is required",
   },
   {
-    name: "startDate",
+    name: "start_date",
     label: "Start date",
     type: "date",
     required: "Start date is required",
   },
   {
-    name: "endDate",
+    name: "end_date",
     label: "End date (leave empty if this is your current job)",
     type: "date",
   },

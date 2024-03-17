@@ -14,13 +14,11 @@ const updateAvatar = async (
   formData.append("avatar", file);
 
   try {
-    const response = await axios.post("/api/users/update-avatar", formData, {
+    const response = await axios.patch("/api/users/update-avatar", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-
-    // Handle the response here
     return response.data;
   } catch (error) {
     // Handle the error here

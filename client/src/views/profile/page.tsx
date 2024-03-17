@@ -14,6 +14,7 @@ import ProfilePictureUpload from "@/components/forms/AvatarUpload";
 import personalDetailsFormSchema from "@/utils/formSchema/personalDetailsFormSchema";
 import { FieldValues } from "react-hook-form";
 import { PersonalDetailsType } from "@/types/Profile.type";
+import { toast } from "react-toastify";
 
 interface PersonalDetailsFormProps {
   prefillData: FieldValues;
@@ -51,6 +52,7 @@ const PersonalDetails = () => {
         fetchProfile();
         setTimeout(() => {
           setIsProfileFormModalOpen(false);
+          toast.success("Profile updated successfully");
         }, 1000);
       }
     } catch (error) {
@@ -65,6 +67,7 @@ const PersonalDetails = () => {
         fetchProfile();
         setTimeout(() => {
           setIsProfileModalOpen(false);
+          toast.success("Profile picture updated successfully");
         }, 1000);
       }
     } catch (error) {
@@ -76,7 +79,7 @@ const PersonalDetails = () => {
     try {
       const data = await readProfile();
       if (data?.success) {
-        setPersonalDetails((prev) => ({ ...prev, ...data.personalDetails }));
+        setPersonalDetails((prev) => ({ ...prev, ...data.user }));
       }
     } catch (error) {
       console.error(error);
@@ -91,7 +94,7 @@ const PersonalDetails = () => {
     };
   }, [fetchProfile, fetchUser]);
 
-  return personalDetails?.registrationNo ? (
+  return personalDetails?.registration_no ? (
     <>
       <section className={cx(styles.box, styles["basic-info-wrapper"])}>
         <div className={styles["actions"]}>
@@ -155,15 +158,15 @@ const PersonalDetails = () => {
           <div className={styles["basic-info-content"]}>
             <h2 className={styles["title"]}>
               {dataValueLookup[personalDetails.title]}{" "}
-              {personalDetails.firstName} {personalDetails.lastName}
+              {personalDetails.first_name} {personalDetails.last_name}
             </h2>
             <div className={styles["subtitle"]}>
               <p>Class of 2020</p>
               <p className={styles["mono"]}>
                 <span title="Registration no.">
-                  {personalDetails.registrationNo}
+                  {personalDetails.registration_no}
                 </span>
-                |<span title="Roll no.">{personalDetails.rollNo}</span>
+                |<span title="Roll no.">{personalDetails.roll_no}</span>
               </p>
               <p>
                 <span title="Email">{user?.email}</span>
@@ -235,9 +238,9 @@ const PersonalDetails = () => {
             </div>
             <div className={styles["col"]}>
               <p className={styles["value"]}>{user?.email}</p>
-              <p className={styles["value"]}>{personalDetails.altEmail}</p>
+              <p className={styles["value"]}>{personalDetails.alt_email}</p>
               <p className={styles["value"]}>{personalDetails.phone}</p>
-              <p className={styles["value"]}>{personalDetails.altPhone}</p>
+              <p className={styles["value"]}>{personalDetails.alt_phone}</p>
             </div>
           </div>
         </div>
